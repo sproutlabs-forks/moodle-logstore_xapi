@@ -24,29 +24,22 @@ function course(array $config, \stdClass $course) {
     $courselang = utils\get_course_lang($course);
     $sendshortid = utils\is_enabled_config($config, 'send_short_course_id');
 
-    if ($sendshortid) {
-        return [
-            'id' => $config['app_url'].'/course/view.php?id='.$course->id,
-            'definition' => [
-                'type' => 'http://id.tincanapi.com/activitytype/lms/course',
-                'name' => [
-                    $courselang => $coursename,
-                ],
-                'extensions' => [
-                    'https://w3id.org/learning-analytics/learning-management-system/short-id' => $course->shortname,
-                    'https://w3id.org/learning-analytics/learning-management-system/idnumber' => $course->idnumber,
-                ]
-            ],
-        ];
-    }
-
-    return [
+    $object = [
         'id' => $config['app_url'].'/course/view.php?id='.$course->id,
         'definition' => [
             'type' => 'http://id.tincanapi.com/activitytype/lms/course',
             'name' => [
                 $courselang => $coursename,
             ],
+            'extensions' => [
+              'https://w3id.org/learning-analytics/learning-management-system/idnumber' => $course->idnumber
+            ],
         ],
     ];
+
+    if ($sendshortid) {
+      $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
+    }
+
+    return $object;
 }

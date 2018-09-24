@@ -82,6 +82,7 @@ function assignment_graded(array $config, \stdClass $event) {
             'language' => $lang,
             'extensions' => [
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
+                utils\EVENT_EXTENSION => $event,
             ],
             'contextActivities' => [
                 'grouping' => [

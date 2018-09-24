@@ -19,6 +19,9 @@
                 "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/course",
                 "name": {
                     "en": "test_name"
+                },
+                "extensions": {
+                    "https:\/\/w3id.org\/learning-analytics\/learning-management-system\/idnumber": null
                 }
             }
         },
@@ -32,6 +35,15 @@
                     "https:\/\/github.com\/xAPI-vle\/moodle-logstore_xapi": "0.0.0-development",
                     "event_name": "\\core\\event\\user_enrolment_created",
                     "event_function": "\\src\\transformer\\events\\core\\user_enrolment_created"
+                },
+                "http:\/\/lrs.learninglocker.net\/define\/extensions\/event": {
+                    "id": 1,
+                    "relateduserid": 1,
+                    "courseid": 1,
+                    "timecreated": 1433946701,
+                    "objecttable": "user",
+                    "objectid": 1,
+                    "eventname": "\\core\\event\\user_enrolment_created"
                 }
             },
             "contextActivities": {

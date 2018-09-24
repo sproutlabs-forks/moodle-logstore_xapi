@@ -72,6 +72,7 @@ function match(array $config, \stdClass $event, \stdClass $questionattempt, \std
             'language' => $lang,
             'extensions' => [
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
+                utils\EVENT_EXTENSION => $event,
             ],
             'contextActivities' => [
                 'grouping' => [

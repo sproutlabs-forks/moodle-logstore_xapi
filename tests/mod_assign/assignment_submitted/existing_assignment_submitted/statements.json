@@ -32,6 +32,16 @@
                     "https:\/\/github.com\/xAPI-vle\/moodle-logstore_xapi": "0.0.0-development",
                     "event_name": "\\mod_assign\\event\\assessable_submitted",
                     "event_function": "\\src\\transformer\\events\\mod_assign\\assignment_submitted"
+                },
+                "http:\/\/lrs.learninglocker.net\/define\/extensions\/event": {
+                    "id": 1,
+                    "userid": 1,
+                    "courseid": 1,
+                    "timecreated": 1433946701,
+                    "objecttable": "assignment_submissions",
+                    "objectid": 1,
+                    "contextinstanceid": 1,
+                    "eventname": "\\mod_assign\\event\\assessable_submitted"
                 }
             },
             "contextActivities": {
@@ -51,6 +61,9 @@
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/course",
                             "name": {
                                 "en": "test_name"
+                            },
+                            "extensions": {
+                                "https:\/\/w3id.org\/learning-analytics\/learning-management-system\/idnumber": null
                             }
                         }
                     }

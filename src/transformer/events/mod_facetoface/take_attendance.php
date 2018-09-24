@@ -63,6 +63,7 @@ function take_attendance(array $config, \stdClass $event) {
                         'instructor' => utils\get_user($config, $user),
                         'extensions' => [
                             utils\INFO_EXTENSION => utils\get_info($config, $event),
+                            utils\EVENT_EXTENSION => $event,
                         ],
                         'contextActivities' => [
                             'grouping' => [

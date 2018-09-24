@@ -55,6 +55,7 @@ function textarea(array $config, \stdClass $event, \stdClass $feedbackvalue, \st
             'language' => $lang,
             'extensions' => [
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
+                utils\EVENT_EXTENSION => $event,
             ],
             'contextActivities' => [
                 'grouping' => [

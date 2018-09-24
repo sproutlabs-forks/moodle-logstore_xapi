@@ -19,6 +19,9 @@
                 "type": "http:\/\/adlnet.gov\/expapi\/activities\/lesson",
                 "name": {
                     "en": "test_name"
+                },
+                "extensions": {
+                    "https:\/\/w3id.org\/learning-analytics\/learning-management-system\/idnumber": null
                 }
             }
         },
@@ -32,6 +35,14 @@
                     "https:\/\/github.com\/xAPI-vle\/moodle-logstore_xapi": "0.0.0-development",
                     "event_name": "\\mod_lesson\\event\\course_module_viewed",
                     "event_function": "\\src\\transformer\\events\\mod_lesson\\course_module_viewed"
+                },
+                "http:\/\/lrs.learninglocker.net\/define\/extensions\/event": {
+                    "id": 1,
+                    "userid": 1,
+                    "courseid": 1,
+                    "timecreated": 1433946701,
+                    "contextinstanceid": 1,
+                    "eventname": "\\mod_lesson\\event\\course_module_viewed"
                 }
             },
             "contextActivities": {
@@ -51,6 +62,9 @@
                             "type": "http:\/\/id.tincanapi.com\/activitytype\/lms\/course",
                             "name": {
                                 "en": "test_name"
+                            },
+                            "extensions": {
+                                "https:\/\/w3id.org\/learning-analytics\/learning-management-system\/idnumber": null
                             }
                         }
                     }

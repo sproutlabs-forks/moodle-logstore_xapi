@@ -58,6 +58,7 @@ function numerical(array $config, \stdClass $event, \stdClass $feedbackvalue, \s
             'language' => $lang,
             'extensions' => [
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
+                utils\EVENT_EXTENSION => $event,
             ],
             'contextActivities' => [
                 'grouping' => [
