@@ -32,7 +32,7 @@ function course(array $config, \stdClass $course) {
                 $courselang => $coursename,
             ],
             'extensions' => [
-              'https://w3id.org/learning-analytics/learning-management-system/idnumber' => $course->idnumber
+              'https://w3id.org/learning-analytics/learning-management-system/idnumber' => $course->idnumber ? $course->idnumber ? null
             ],
         ],
     ];
