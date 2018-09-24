@@ -32,13 +32,13 @@ function course(array $config, \stdClass $course) {
                 $courselang => $coursename,
             ],
             'extensions' => [
-              'https://w3id.org/learning-analytics/learning-management-system/idnumber' => property_exists($course, 'idnumber') ? $course->idnumber : null
+                'https://w3id.org/learning-analytics/learning-management-system/idnumber' => property_exists($course, 'idnumber') ? $course->idnumber : null
             ],
         ],
     ];
 
     if ($sendshortid) {
-      $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
+        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
     }
 
     return $object;
