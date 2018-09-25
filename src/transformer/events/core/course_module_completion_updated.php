@@ -63,7 +63,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
         ]
     ];
 
-    $unserializedother = unserialize($event->other);
+    $unserializedother = property_exists($event, 'other') ? unserialize($event->other) : [];
     if(isset($unserializedother['overrideby']) && $unserializedother['overrideby'] > 0) {
       $instructor = $repo->read_record_by_id('user', $unserializedother['overrideby']);
       $statement['context']['instructor'] = utils\get_user($config, $instructor);
