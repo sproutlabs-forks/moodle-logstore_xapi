@@ -29,7 +29,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
     $module = $repo->read_record_by_id($moduletype->name, $coursemodule->instance);
     $lang = utils\get_course_lang($course);
 
-    return [[
+    $statement = [
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/completed',
@@ -61,5 +61,13 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                 ]
             ],
         ]
-    ]];
+    ];
+
+    $unserializedother = unserialize($event->other);
+    if(isset($unserializedother['overrideby']) && $unserializedother['overrideby'] > 0) {
+      $instructor = $repo->read_record_by_id('user', $unserializedother['overrideby']);
+      $statement['context']['instructor'] = utils\get_user($config, $instructor);
+    }
+
+    return [$statement];
 }
