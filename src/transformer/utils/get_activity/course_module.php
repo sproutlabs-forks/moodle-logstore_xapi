@@ -37,7 +37,7 @@ function course_module(array $config, $course, $cmid, $xapitype) {
                 $courselang => $instancename,
             ],
             'extensions' => [
-              'https://w3id.org/learning-analytics/learning-management-system/idnumber' => property_exists($module, 'idnumber') ? $module->idnumber : null
+              'https://w3id.org/learning-analytics/learning-management-system/idnumber' => property_exists($coursemodule, 'idnumber') ? $coursemodule->idnumber : null
             ],
         ],
     ];
