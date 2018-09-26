@@ -1,6 +1,8 @@
 # [Moodle Logstore xAPI](https://moodle.org/plugins/view/logstore_xapi)
 > Emits [xAPI](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md) statements using the [Moodle](https://moodle.org/) Logstore.
 
+# This is a PoC fork for Sprout Labs and should not be used in production.
+
 - Install the plugin using [our zip installation guide](/docs/install-with-zip.md).
 - Process events before the plugin was installed using [our historical events guide](/docs/historical-events.md).
 - Ask questions with the [Gitter chat room](https://gitter.im/LearningLocker/learninglocker).
