@@ -28,6 +28,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
     $moduletype = $repo->read_record_by_id('modules', $coursemodule->module);
     $module = $repo->read_record_by_id($moduletype->name, $coursemodule->instance);
     $lang = utils\get_course_lang($course);
+    $completion = $repo->read_record_by_id('course_modules_completion', $event->objectid);
 
     $statement = [
         'actor' => utils\get_user($config, $user),
@@ -50,6 +51,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
             'extensions' => [
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
                 utils\EVENT_EXTENSION => $event,
+                'https://w3id.org/learning-analytics/learning-management-system/timemodified' => $completion->timemodified
             ],
             'contextActivities' => [
                 'grouping' => [
