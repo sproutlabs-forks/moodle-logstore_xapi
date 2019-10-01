@@ -19,31 +19,29 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function course(array $config, \stdClass $course) {
-    $coursename = $course->fullname ? $course->fullname : 'A Moodle course';
+function course_module(array $config, $course, $cmid, $xapitype) {
+    $repo = $config['repo'];
+    $coursemodule = $repo->read_record_by_id('course_modules', $cmid);
+    $module = $repo->read_record_by_id('modules', $coursemodule->module);
+    $instance = $repo->read_record_by_id($module->name, $coursemodule->instance);
+
+    $coursemoduleurl = $config['app_url'].'/mod/'.$module->name.'/view.php?id='.$cmid;
     $courselang = utils\get_course_lang($course);
-    $sendshortid = utils\is_enabled_config($config, 'send_short_course_id');
+    $instancename = property_exists($instance, 'name') ? $instance->name : $module->name;
 
     $object = [
-        'id' => $config['app_url'].'/course/view.php?id='.$course->id,
+        'id' => $coursemoduleurl,
         'definition' => [
-            'type' => 'http://id.tincanapi.com/activitytype/lms/course',
+            'type' => $xapitype,
             'name' => [
-                $courselang => $coursename,
-            ],
-            'extensions' => [
-                'https://w3id.org/learning-analytics/learning-management-system/idnumber' => property_exists($course, 'idnumber') ? $course->idnumber : null
+                $courselang => $instancename,
             ],
         ],
     ];
 
-    if (utils\is_enabled_config($config, 'send_short_course_id')) {
-        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/short-id'] = $course->shortname;
-    }
-
     if (utils\is_enabled_config($config, 'send_course_and_module_idnumber')) {
-        $courseidnumber = property_exists($course, 'idnumber') ? $course->idnumber : null;
-        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $courseidnumber;
+        $moduleidnumber = property_exists($coursemodule, 'idnumber') ? $coursemodule->idnumber : null;
+        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $moduleidnumber;
     }
 
     return $object;

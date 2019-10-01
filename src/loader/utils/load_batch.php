@@ -19,19 +19,35 @@ namespace src\loader\utils;
 defined('MOODLE_INTERNAL') || die();
 
 function load_batch(array $config, array $transformedevents, callable $loader) {
-    try {
-        $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
-            $eventstatements = $transformedevent['statements'];
-            return array_merge($result, $eventstatements);
-        }, []);
-        $loader($config, $statements);
-        $loadedevents = construct_loaded_events($transformedevents, true);
-        return $loadedevents;
-    } catch (\Exception $e) {
-        $logerror = $config['log_error'];
-        $logerror("Failed load for event id #" . $eventobj->id . ": " .  $e->getMessage());
-        $logerror($e->getTraceAsString());
-        $loadedevents = construct_loaded_events($transformedevents, false);
-        return $loadedevents;
+  try {
+    $statements = array_reduce($transformedevents, function ($result, $transformedevent) {
+      $eventstatements = $transformedevent['statements'];
+      return array_merge($result, $eventstatements);
+    }, []);
+    $loader($config, $statements);
+    $loadedevents = construct_loaded_events($transformedevents, true);
+    return $loadedevents;
+  }
+  catch (\Exception $e) {
+    $batchsize = count($transformedevents);
+    $logerror = $config['log_error'];
+    $logerror("Failed load batch (" . $batchsize . " events)" . $e->getMessage());
+    $logerror($e->getTraceAsString());
+
+    // In the event of a 400 error, recursively retry sending statements in increasingly
+    // smaller batches so that only the actual bad data fails.
+    if ($batchsize === 1 || $e->getCode() !== 400 || $config['lrs_resend_failed_batches'] !== '1') {
+      $loadedevents = construct_loaded_events($transformedevents, false);
     }
+    else {
+      $newconfig = $config;
+      $newconfig['lrs_max_batch_size'] = round($batchsize / 2);
+      $batches = get_event_batches($newconfig, $transformedevents);
+      $loadedevents = array_reduce($batches, function ($result, $batch) use ($newconfig, $loader) {
+        $loadedbatchevents = load_batch($newconfig, $batch, $loader);
+        return array_merge($result, $loadedbatchevents);
+      }, []);
+    }
+    return $loadedevents;
+  }
 }

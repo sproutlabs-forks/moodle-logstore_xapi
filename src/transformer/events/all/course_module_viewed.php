@@ -21,42 +21,42 @@ defined('MOODLE_INTERNAL') || die();
 use src\transformer\utils as utils;
 
 function course_module_viewed(array $config, \stdClass $event) {
-    $repo = $config['repo'];
-    $user = $repo->read_record_by_id('user', $event->userid);
-    $course = $repo->read_record_by_id('course', $event->courseid);
-    $lang = utils\get_course_lang($course);
+  $repo = $config['repo'];
+  $user = $repo->read_record_by_id('user', $event->userid);
+  $course = $repo->read_record_by_id('course', $event->courseid);
+  $lang = utils\get_course_lang($course);
 
-    return [[
-        'actor' => utils\get_user($config, $user),
-        'verb' => [
-            'id' => 'http://id.tincanapi.com/verb/viewed',
-            'display' => [
-                $lang => 'viewed'
-            ],
+  return [[
+    'actor' => utils\get_user($config, $user),
+    'verb' => [
+      'id' => 'http://id.tincanapi.com/verb/viewed',
+      'display' => [
+        $lang => 'viewed'
+      ],
+    ],
+    'object' => utils\get_activity\course_module(
+      $config,
+      $course,
+      $event->contextinstanceid,
+      'http://id.tincanapi.com/activitytype/lms/module'
+    ),
+    'timestamp' => utils\get_event_timestamp($event),
+    'context' => [
+      'platform' => $config['source_name'],
+      'language' => $lang,
+      'extensions' => [
+      utils\INFO_EXTENSION => utils\get_info($config, $event),
+      utils\EVENT_EXTENSION => $event,
+      ] + utils\extensions\base($config, $event, $course), // Adding extensions from upstream (vle) xAPI module
+      'contextActivities' => [
+        'grouping' => [
+          utils\get_activity\site($config),
+          utils\get_activity\course($config, $course),
         ],
-        'object' => utils\get_activity\course_module(
-            $config,
-            $course,
-            $event->contextinstanceid,
-            'http://id.tincanapi.com/activitytype/lms/module'
-        ),
-        'timestamp' => utils\get_event_timestamp($event),
-        'context' => [
-            'platform' => $config['source_name'],
-            'language' => $lang,
-            'extensions' => [
-                utils\INFO_EXTENSION => utils\get_info($config, $event),
-                utils\EVENT_EXTENSION => $event,
-            ],
-            'contextActivities' => [
-                'grouping' => [
-                    utils\get_activity\site($config),
-                    utils\get_activity\course($config, $course),
-                ],
-                'category' => [
-                    utils\get_activity\source($config),
-                ]
-            ],
+        'category' => [
+          utils\get_activity\source($config),
         ]
-    ]];
+      ],
+    ]
+  ]];
 }

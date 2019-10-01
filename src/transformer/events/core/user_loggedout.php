@@ -41,7 +41,7 @@ function user_loggedout(array $config, \stdClass $event) {
             'extensions' => [
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
                 utils\EVENT_EXTENSION => $event,
-            ],
+            ] + utils\extensions\base($config, $event, null),
             'contextActivities' => [
                 'category' => [
                     utils\get_activity\source($config)

@@ -62,7 +62,7 @@ function truefalse(array $config, \stdClass $event, \stdClass $questionattempt, 
             'extensions' => [
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
                 utils\EVENT_EXTENSION => $event,
-            ],
+            ] + utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
