@@ -26,4 +26,13 @@ $tasks = array(
         'dayofweek' => '*',
         'month' => '*'
     ),
+  array(
+        'classname' => '\logstore_xapi\task\resend_failed_task',
+        'blocking' => 0,
+        'minute' => '*/1',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ),
 );
