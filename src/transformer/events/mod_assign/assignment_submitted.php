@@ -49,7 +49,7 @@ function assignment_submitted(array $config, \stdClass $event) {
                 'grouping' => [
                     utils\get_activity\site($config),
                     utils\get_activity\course($config, $course),
-                ] + utils\extensions\base($config, $event, $course),
+                ], //  + utils\extensions\base($config, $event, $course),
                 'category' => [
                     utils\get_activity\source($config)
                 ]

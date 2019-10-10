@@ -47,7 +47,7 @@ function course_module_viewed(array $config, \stdClass $event) {
       'extensions' => [
       utils\INFO_EXTENSION => utils\get_info($config, $event),
       utils\EVENT_EXTENSION => $event,
-      ] + utils\extensions\base($config, $event, $course), // Adding extensions from upstream (vle) xAPI module
+      ], // + utils\extensions\base($config, $event, $course), // Adding extensions from upstream (vle) xAPI module
       'contextActivities' => [
         'grouping' => [
           utils\get_activity\site($config),

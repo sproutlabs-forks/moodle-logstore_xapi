@@ -52,7 +52,7 @@ function course_module_completion_updated(array $config, \stdClass $event) {
                 utils\INFO_EXTENSION => utils\get_info($config, $event),
                 utils\EVENT_EXTENSION => $event,
                 'https://w3id.org/learning-analytics/learning-management-system/timemodified' => $completion->timemodified
-            ] + utils\extensions\base($config, $event, $course),
+            ], //  + utils\extensions\base($config, $event, $course),
             'contextActivities' => [
                 'grouping' => [
                     utils\get_activity\site($config),
