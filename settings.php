@@ -43,10 +43,6 @@ if ($hassiteconfig) {
       get_string('resendfailedbatches', 'logstore_xapi'),
       get_string('resendfailedbatches_desc', 'logstore_xapi'), 0));
 
-  $settings->add(new admin_setting_configduration('logstore_xapi/failedeventstimeoutperiod',
-      get_string('failedeventstimeoutperiod', 'logstore_xapi'),
-      get_string('failedeventstimeoutperiod_desc', 'logstore_xapi'), 0));
-
   $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
       get_string('mbox', 'logstore_xapi'),
       get_string('mbox_desc', 'logstore_xapi'), 0));

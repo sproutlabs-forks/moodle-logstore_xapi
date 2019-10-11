@@ -55,5 +55,5 @@ $string['resendfailedbatches'] = 'Resend failed batches';
 $string['resendfailedbatches_desc'] = 'When processing events in batches, try re-sending events in smaller batches if a batch fails. If not selected, the whole batch will not be sent in the event of a failed event.';
 
 $string['taskresendfailed'] = 'Resend failed records to LRS';
-$string['failedeventstimeoutperiod'] = 'Failed events timeout period';
-$string['failedeventstimeoutperiod_desc'] = 'Failed events will be retried for the duration set here';
+$string['sentsuccess'] = '{$a} event records successfully sent to LRS.';
+$string['recordsleft'] = '{$a} event records are waiting resend to LRS.';
