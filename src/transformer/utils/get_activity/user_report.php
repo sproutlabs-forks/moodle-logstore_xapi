@@ -19,7 +19,8 @@ defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
 
-function user_report(array $config, \stdClass $user, \stdClass $course, $courselang) {
+function user_report(array $config, \stdClass $user, \stdClass $course) {
+    $courselang = utils\get_course_lang($course);
 
     $activity = [
         'definition' => [
