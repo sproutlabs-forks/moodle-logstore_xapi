@@ -140,7 +140,7 @@ class resend_failed_task extends \core\task\scheduled_task {
             }
         }
 
-        $this->notify_admin();
+       // $this->notify_admin();
     }
 
 }
