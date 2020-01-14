@@ -39,6 +39,10 @@ if ($hassiteconfig) {
         get_string('maxbatchsize', 'logstore_xapi'),
         get_string('maxbatchsize_desc', 'logstore_xapi'), 30, PARAM_INT));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/resendfailedbatches',
+        get_string('resendfailedbatches', 'logstore_xapi'),
+        get_string('resendfailedbatches_desc', 'logstore_xapi'), 0));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
         get_string('mbox', 'logstore_xapi'),
         get_string('mbox_desc', 'logstore_xapi'), 0));
@@ -47,13 +51,21 @@ if ($hassiteconfig) {
         get_string('shortcourseid', 'logstore_xapi'),
         get_string('shortcourseid_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/sendidnumber',
+        get_string('sendidnumber', 'logstore_xapi'),
+        get_string('sendidnumber_desc', 'logstore_xapi'), 0));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_username',
         get_string('send_username', 'logstore_xapi'),
         get_string('send_username_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_jisc_data',
+        get_string('send_jisc_data', 'logstore_xapi'),
+        get_string('send_jisc_data_desc', 'logstore_xapi'), 0));
+
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/sendresponsechoices',
-       get_string('send_response_choices', 'logstore_xapi'),
-       get_string('send_response_choices_desc', 'logstore_xapi'), 0));
+        get_string('send_response_choices', 'logstore_xapi'),
+        get_string('send_response_choices_desc', 'logstore_xapi'), 0));
 
     // Filters.
     $settings->add(new admin_setting_heading('filters',
@@ -71,5 +83,4 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_configmulticheckbox('logstore_xapi/routes',
         get_string('routes', 'logstore_xapi'), '', $menuroutes, $menuroutes));
-
 }
