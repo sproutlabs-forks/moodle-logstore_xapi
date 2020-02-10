@@ -140,7 +140,11 @@ class resend_failed_task extends \core\task\scheduled_task {
             }
         }
 
-        $this->notify_admin();
+        //if have haven't been able to send we send a message  
+        if(count($failedevents) != 0) {
+             $this->notify_admin();
+        }
+
     }
 
 }
