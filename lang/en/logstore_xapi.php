@@ -17,6 +17,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['endpoint'] = 'Endpoint';
+$string['forwardendpoint'] = 'Forwarding Endpoint';
 $string['settings'] = 'General Settings';
 $string['xapifieldset'] = 'Custom example fieldset';
 $string['xapi'] = 'xAPI';
