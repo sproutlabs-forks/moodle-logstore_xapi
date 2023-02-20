@@ -30,6 +30,7 @@ function load(array $config, array $events) {
         $endpoint = $config['lrs_endpoint'];
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
+        $forwardendpoint = $config['forwardendpoint'];
    
 
         $url = utils\correct_endpoint($endpoint).'/statements';
@@ -45,7 +46,24 @@ function load(array $config, array $events) {
             ],
         ]);
         $responsecode = $request->info['http_code'];
+        if($forwardendpoint){
+            $newstatement = $statements[0];
+            $uuid = utils\generate_uuid();
+            $newstatement['id']=$uuid;
+            $newpostdata = json_encode($newstatement);
+            $newrequest = new \curl();
+            $newresponsetext = $newrequest->post($forwardendpoint, $newpostdata, [
+                'CURLOPT_HTTPHEADER' => [
+                    'Content-Type: application/json',
+                ],
+            ]);
+            $newresponsecode = $request->info['http_code'];
 
+            if ($newresponsecode !== 200) {
+                throw new \Exception($newresponsetext);
+            }   
+        }
+       
         if ($responsecode !== 200) {
             throw new \Exception($responsetext);
         }
