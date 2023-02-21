@@ -31,8 +31,7 @@ function load(array $config, array $events) {
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
         $forwardendpoint = $config['forwardendpoint'];
-   
-
+        
         $url = utils\correct_endpoint($endpoint).'/statements';
         $auth = base64_encode($username.':'.$password);
         $postdata = json_encode($statements);
@@ -48,25 +47,22 @@ function load(array $config, array $events) {
         $responsecode = $request->info['http_code'];
         if($forwardendpoint){
             foreach ($statements as $statement){
-                $newstatement = $statement;
-                $uuid = utils\generate_uuid();
-                $newstatement['id']=$uuid;
-                $newpostdata = json_encode($newstatement);
-                $newrequest = new \curl();
-                $newresponsetext = $newrequest->post($forwardendpoint, $newpostdata, [
-                    'CURLOPT_HTTPHEADER' => [
-                        'Content-Type: application/json',
-                    ],
-                ]);
-                $newresponsecode = $request->info['http_code'];
-
-                if ($newresponsecode !== 200) {
-                    throw new \Exception($newresponsetext);
-                }   
+                if($statement['verb']['id']=='http://id.tincanapi.com/verb/completed' || $statement['verb']['id']=='http://adlnet.gov/expapi/verbs/completed') {
+                    $newpostdata = json_encode($statement);
+                    $newrequest = new \curl();
+                    $newresponsetext = $newrequest->post($forwardendpoint, $newpostdata, [
+                        'CURLOPT_HTTPHEADER' => [
+                            'Content-Type: application/json',
+                        ],
+                    ]);
+                    $newresponsecode = $newrequest->info['http_code'];
+                    if ($newresponsecode !== 200) {
+                        throw new \Exception($newresponsetext);
+                    }
+                }                 
             }
-             
         }
-       
+        
         if ($responsecode !== 200) {
             throw new \Exception($responsetext);
         }

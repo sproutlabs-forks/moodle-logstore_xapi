@@ -19,7 +19,7 @@ namespace src\transformer\events\core;
 defined('MOODLE_INTERNAL') || die();
 
 use src\transformer\utils as utils;
-
+use src\loader\utils as loaderutils;
 function course_completed(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->relateduserid);
@@ -27,6 +27,7 @@ function course_completed(array $config, \stdClass $event) {
     $lang = utils\get_course_lang($course);
 
     return [[
+        'id' =>loaderutils\generate_uuid(),
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://id.tincanapi.com/verb/completed',
