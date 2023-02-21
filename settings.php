@@ -67,6 +67,10 @@ if ($hassiteconfig) {
         get_string('send_response_choices', 'logstore_xapi'),
         get_string('send_response_choices_desc', 'logstore_xapi'), 0));
 
+    $settings->add(new admin_setting_configtext('logstore_xapi/forwardendpoint',
+        get_string('forwardendpoint', 'logstore_xapi'), '',
+        '', PARAM_URL));
+    
     // Filters.
     $settings->add(new admin_setting_heading('filters',
         get_string('filters', 'logstore_xapi'),
