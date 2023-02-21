@@ -30,7 +30,7 @@ function load(array $config, array $events) {
         $endpoint = $config['lrs_endpoint'];
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
-        $forwardendpoint = "https://pybar-integration.sproutlabs.com.au/xapi/";
+        $forwardendpoint = $config['forwardendpoint'];
    
 
         $url = utils\correct_endpoint($endpoint).'/statements';
