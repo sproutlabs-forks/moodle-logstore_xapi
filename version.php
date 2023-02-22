@@ -18,7 +18,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin = isset($plugin) && is_object($plugin) ? $plugin : new \stdClass();
 $plugin->component = 'logstore_xapi';
-$plugin->version = 2019101202;
+$plugin->version = 2019101204;
 $plugin->release = 'SPROUTLABS_RELEASE_3';
 $plugin->requires = 2014111000;
 $plugin->maturity = MATURITY_STABLE;
