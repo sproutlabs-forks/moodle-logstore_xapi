@@ -46,20 +46,20 @@ function load(array $config, array $events) {
         ]);
         $responsecode = $request->info['http_code'];
         if($forwardendpoint){
-            foreach ($statements as $statement){
-                if($statement['verb']['id']=='http://id.tincanapi.com/verb/completed' || $statement['verb']['id']=='http://adlnet.gov/expapi/verbs/completed') {
-                    $newpostdata = json_encode($statement);
-                    $newrequest = new \curl();
-                    $newresponsetext = $newrequest->post($forwardendpoint, $newpostdata, [
-                        'CURLOPT_HTTPHEADER' => [
-                            'Content-Type: application/json',
-                        ],
-                    ]);
-                    $newresponsecode = $newrequest->info['http_code'];
-                    if ($newresponsecode !== 200) {
-                        throw new \Exception($newresponsetext);
-                    }
-                }                 
+            $statements = array_filter($statements,function($statement){
+                return ($statement['verb']['id']=='http://id.tincanapi.com/verb/completed' || $statement['verb']['id']=='http://adlnet.gov/expapi/verbs/completed');
+            });
+
+            $newpostdata = json_encode($statements);
+            $newrequest = new \curl();
+            $newresponsetext = $newrequest->post($forwardendpoint, $newpostdata, [
+                'CURLOPT_HTTPHEADER' => [
+                    'Content-Type: application/json',
+                ],
+            ]);
+            $newresponsecode = $newrequest->info['http_code'];
+            if ($newresponsecode !== 200) {
+                throw new \Exception($newresponsetext);
             }
         }
         
