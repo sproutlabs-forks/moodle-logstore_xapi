@@ -27,6 +27,8 @@ use src\loader\utils as utils;
 
 function load(array $config, array $events) {
     $sendhttpstatements = function (array $config, array $statements) {
+        global $DB;
+        
         $endpoint = $config['lrs_endpoint'];
         $username = $config['lrs_username'];
         $password = $config['lrs_password'];
@@ -59,7 +61,11 @@ function load(array $config, array $events) {
             ]);
             $newresponsecode = $newrequest->info['http_code'];
             if ($newresponsecode !== 200) {
-                throw new \Exception($newresponsetext);
+                try {
+                    $DB->insert_record('logstore_xapi_forward_failed_log', array('statements' => $newpostdata,'timemodified'=>time()));
+                }catch (\Exception $e) {
+                    $DB->insert_record('logstore_xapi_forward_failed_log', array('statements' => 'Failed to store statements','timemodified'=>time()));
+                }
             }
         }
         
