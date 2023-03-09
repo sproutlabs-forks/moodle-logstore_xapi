@@ -62,13 +62,19 @@ function load(array $config, array $events) {
             $newresponsecode = $newrequest->info['http_code'];
             if ($newresponsecode !== 200) {
                 try {
-                    $DB->insert_record('logstore_xapi_forward_failed_log', array('statements' => $newpostdata,'timemodified'=>time()));
+                    $params = new \stdClass();
+                    $params->statement = $newpostdata;
+                    $params->timemodified = time();
+                    $DB->insert_record('logstore_xapi_forward_failed_log', $params);
                 }catch (\Exception $e) {
-                    $DB->insert_record('logstore_xapi_forward_failed_log', array('statements' => 'Failed to store statements','timemodified'=>time()));
+                    $params = new \stdClass();
+                    $params->statement = 'Failed to store statements';
+                    $params->timemodified = time();
+                    $DB->insert_record('logstore_xapi_forward_failed_log',$params );
                 }
             }
         }
-        
+
         if ($responsecode !== 200) {
             throw new \Exception($responsetext);
         }
