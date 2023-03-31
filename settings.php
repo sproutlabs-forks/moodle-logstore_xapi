@@ -70,7 +70,11 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('logstore_xapi/forwardendpoint',
         get_string('forwardendpoint', 'logstore_xapi'), '',
         '', PARAM_URL));
-    
+
+    $settings->add(new admin_setting_configtextarea('logstore_xapi/reprocessusers',
+        new lang_string('reprocessusers', 'logstore_xapi'),
+        new lang_string('reprocessusers', 'logstore_xapi'), '', PARAM_RAW, '50', '10'));
+
     // Filters.
     $settings->add(new admin_setting_heading('filters',
         get_string('filters', 'logstore_xapi'),

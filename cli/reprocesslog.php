@@ -11,34 +11,16 @@ echo "***Starting ***" . \PHP_EOL;
 
 
 
-// TODO change me to vacca before running on live.
+$config = get_config('logstore_xapi','reprocessusers');
+$affectedusers = json_decode(base64_decode($config));
 
-function getCSVData($filename){
-    $CSV = \fopen(__DIR__ ."/{$filename}", 'r');
-
-// Headrow
-    $headerRow = \fgetcsv($CSV, 3000, ",");
-
-// Rows
-    $csv = [];
-    while ($rows = \fgetcsv($CSV, 3000, ",")) {
-        $row = \array_combine($headerRow, $rows);
-        $csv[] = $row;
-
-    }
-
-    fclose($CSV);
-    return $csv;
-}
-
-$affectedusers  = getCSVData('data.csv');
 global $DB;
 foreach ($affectedusers as $affecteduser){
-    $email = $affecteduser['email'];
-    $courseidnumber = $affecteduser['courseidnumber'];
-    print_r($email.PHP_EOL);
+    $email = $affecteduser->Email;
+    $courseidnumber = $affecteduser->Code;
+
     $user = $DB->get_record('user',['email'=>$email]);
-   
+  
    if($user && isset($user->id)){
        print_r($user->id);   
    }
@@ -52,13 +34,10 @@ foreach ($affectedusers as $affecteduser){
         if($logs){
             $DB->insert_records('logstore_xapi_log',$logs);
         }
+        print_r($email.PHP_EOL);
     }
+   
     
-  
-
-die();
-
-
 }
 
 

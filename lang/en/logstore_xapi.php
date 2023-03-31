@@ -52,3 +52,4 @@ $string['send_response_choices_desc'] = 'Statements for multiple choice question
 $string['taskresendfailed'] = 'Resend failed records to LRS';
 $string['sentsuccess'] = '{$a} event records successfully sent to LRS.';
 $string['recordsleft'] = '{$a} event records are waiting resend to LRS.';
+$string['reprocessusers'] = 'Reprocess users';
