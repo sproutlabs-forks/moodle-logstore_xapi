@@ -38,8 +38,8 @@ $tasks = array(
     array(
         'classname' => '\logstore_xapi\task\resend_failed_integration',
         'blocking' => 0,
-        'minute' => '*',
-        'hour' => '*/1',
+        'minute' => '*/5',
+        'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
         'month' => '*'
