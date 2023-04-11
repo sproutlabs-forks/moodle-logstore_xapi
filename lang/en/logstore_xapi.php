@@ -50,6 +50,7 @@ $string['send_response_choices'] = 'Send response choices';
 $string['send_response_choices_desc'] = 'Statements for multiple choice question answers will be sent to the LRS with the correct response and potential choices';
 
 $string['taskresendfailed'] = 'Resend failed records to LRS';
+$string['taskresendfailed2'] = 'Resend failed records to Integration';
 $string['sentsuccess'] = '{$a} event records successfully sent to LRS.';
 $string['recordsleft'] = '{$a} event records are waiting resend to LRS.';
 $string['reprocessusers'] = 'Reprocess users';
