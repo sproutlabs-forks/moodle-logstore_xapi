@@ -29,7 +29,7 @@ class resend_failed_integration extends \core\task\scheduled_task {
         
         $forwardendpoint = get_config('logstore_xapi','forwardendpoint');
         if($forwardendpoint){
-            $failed_logs = $DB->get_records('logstore_xapi_forward_failed_log');
+            $failed_logs = $DB->get_records('logstore_xapi_forward_failed_log',array(),'','*',0,30);
             $count = count($failed_logs);
             print_r("Processing {$count} failed logs");
             foreach ($failed_logs as $failed_log){
