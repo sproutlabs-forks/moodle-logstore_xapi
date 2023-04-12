@@ -34,7 +34,7 @@ class resend_failed_integration extends \core\task\scheduled_task {
             print_r("Processing {$count} failed logs");
             foreach ($failed_logs as $failed_log){
                 $newrequest = new \curl();
-                $newresponsetext = $newrequest->post($forwardendpoint, $failed_log->statements, [
+                $newresponsetext = $newrequest->post($forwardendpoint, $failed_log->statement, [
                     'CURLOPT_HTTPHEADER' => [
                         'Content-Type: application/json',
                     ],
