@@ -21,21 +21,21 @@ foreach ($affectedusers as $affecteduser){
 
 
     $user = $DB->get_record('user',['email'=>$email]);
-  
-   if($user && isset($user->id)){
-       print_r($user->id."    ");   
-   }
+
+    if($user && isset($user->id)){
+        print_r($user->id."    ");
+    }
     $course = $DB->get_record('course',['idnumber'=>$courseidnumber]);
     if($course && isset($course->id)){
         print_r($course->id."    ");
     }
     $logs = '';
     if($user && $course){
-        if($affecteduser->CourseCompletionOnly){
+        if(strtolower($affecteduser->CourseCompletionOnly)==true){
             $logs = $DB->get_records_sql("SELECT * from {logstore_standard_log} WHERE relateduserid={$user->id} AND courseid = {$course->id} AND(objecttable = 'course_completions' )");
-            
+
         }else{
-            $logs = $DB->get_records_sql("SELECT * from {logstore_standard_log} WHERE relateduserid={$user->id} AND courseid = {$course->id} AND( objecttable = 'course_module_completion' OR objecttable = 'course_completion' )");
+            $logs = $DB->get_records_sql("SELECT * from {logstore_standard_log} WHERE relateduserid={$user->id} AND courseid = {$course->id} AND( objecttable = 'course_modules_completion' OR objecttable = 'course_completions' )");
 
         }
         if($logs){
@@ -44,8 +44,8 @@ foreach ($affectedusers as $affecteduser){
         print_r("Count  ".count($logs)."    ");
         print_r($email.PHP_EOL);
     }
-   
-    
+
+
 }
 
 
