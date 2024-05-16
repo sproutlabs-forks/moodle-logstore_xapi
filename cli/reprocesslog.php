@@ -14,13 +14,19 @@ echo "***Starting ***" . \PHP_EOL;
 $config = get_config('logstore_xapi','reprocessusers');
 $affectedusers = json_decode(base64_decode($config));
 
+if(empty($config) || !$config) {
+    exit(0);
+}
+
 global $DB;
+$string = '';
 foreach ($affectedusers as $affecteduser){
     $email = $affecteduser->Email;
     $courseidnumber = $affecteduser->Code;
 
 
     $user = $DB->get_record('user',['email'=>$email]);
+
 
     if($user && isset($user->id)){
         print_r($user->id."    ");
@@ -47,6 +53,11 @@ foreach ($affectedusers as $affecteduser){
 
 
 }
+$new_process_value = ''; // Replace 'new_value_here' with the new value you want to set
+$config->reprocessusers = $new_process_value;
+
+// Save the updated configuration settings
+set_config('reprocessusers', $new_process_value, 'logstore_xapi');
 
 
 echo \PHP_EOL . "***End ***";
